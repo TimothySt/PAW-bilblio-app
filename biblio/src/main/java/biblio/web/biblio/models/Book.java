@@ -1,6 +1,8 @@
 package biblio.web.biblio.models;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,37 +36,66 @@ public class Book {
     private String title;
     private String description;
     private int publishedDate;
-    private String publisher;
     private int pages;
     private String language;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Copy> copies;
 
+    
     @ManyToMany
     @JoinTable(
-            name = "BooksAuthors",
-            joinColumns = @JoinColumn(name = "title_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private List<Author> authors;
-    
+        name = "BooksAuthors",
+        joinColumns = @JoinColumn(name = "title_id"),
+        inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
     // Inne pola i metody
+
+    // constructors
 
     public Book() {
     }
 
-    public Book(Long titleId, String isbn, String title, String description, int publishedDate, String publisher, int pages, String language, List<Copy> copies) {
+    public Book(String isbn, String title, String description, int publishedDate, int pages, String language,
+            Publisher publisher, List<Copy> copies, Set<Author> authors) {
+        // this.titleId = titleId;
+        this.isbn = isbn;
+        this.title = title;
+        this.description = description;
+        this.publishedDate = publishedDate;
+        this.pages = pages;
+        this.language = language;
+        this.publisher = publisher;
+        this.copies = copies;
+        this.authors = authors;
+    }
+    public Book(String isbn, String title, String description, int publishedDate, int pages, String language, Publisher publisher) {
+        this.isbn = isbn;
+        this.title = title;
+        this.description = description;
+        this.publishedDate = publishedDate;
+        this.pages = pages;
+        this.language = language;
+        this.publisher = publisher;
+    }
+
+    public Book(Long titleId, String isbn, String title, String description, int publishedDate, int pages, String language, Publisher publisher, List<Copy> copies, Set<Author> authors) {
         this.titleId = titleId;
         this.isbn = isbn;
         this.title = title;
         this.description = description;
         this.publishedDate = publishedDate;
-        this.publisher = publisher;
         this.pages = pages;
         this.language = language;
+        this.publisher = publisher;
         this.copies = copies;
+        this.authors = authors;
     }
+
     
     // Getters and setters
 
@@ -107,11 +139,11 @@ public class Book {
         this.publishedDate = publishedDate;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return this.publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
@@ -138,5 +170,11 @@ public class Book {
     public void setCopies(List<Copy> copies) {
         this.copies = copies;
     }
-    
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
 }
