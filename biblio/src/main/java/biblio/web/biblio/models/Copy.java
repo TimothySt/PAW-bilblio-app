@@ -1,42 +1,42 @@
 package biblio.web.biblio.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
-@Table(name = "copies", schema = "PAW_biblio")
+@Table(name = "Copies")
 public class Copy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "copy_id")
-    private Long copyId;
+    private String copyId;
 
     @ManyToOne
     @JoinColumn(name = "title_id")
-    @JsonIgnore
     private Book book;
 
-    @Column(name = "available")
     private boolean available;
 
-    // Inne pola i metody
-    
     // Getters and setters
 
-    public Long getCopyId() {
+    public Copy() {
+    }
+
+    public Copy(String copyId, Book book, boolean available) {
+        this.copyId = copyId;
+        this.book = book;
+        this.available = available;
+    }
+
+    public String getCopyId() {
         return this.copyId;
     }
 
-    public void setCopyId(Long copyId) {
+    public void setCopyId(String copyId) {
         this.copyId = copyId;
     }
 
@@ -60,4 +60,44 @@ public class Copy {
         this.available = available;
     }
 
+    public Copy copyId(String copyId) {
+        setCopyId(copyId);
+        return this;
+    }
+
+    public Copy book(Book book) {
+        setBook(book);
+        return this;
+    }
+
+    public Copy available(boolean available) {
+        setAvailable(available);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Copy)) {
+            return false;
+        }
+        Copy copy = (Copy) o;
+        return Objects.equals(copyId, copy.copyId) && Objects.equals(book, copy.book) && available == copy.available;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(copyId, book, available);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " copyId='" + getCopyId() + "'" +
+            ", book='" + getBook() + "'" +
+            ", available='" + isAvailable() + "'" +
+            "}";
+    }
+    
 }
