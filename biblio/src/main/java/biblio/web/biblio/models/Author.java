@@ -20,7 +20,9 @@ public class Author {
     @Column(name = "author_id")
     private Long authorId;
 
+    // TODO unique
     private String name;
+    
     private String description;
 
     @ManyToMany(mappedBy = "authors")
