@@ -2,23 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:fragment="headerfiles">
         <meta charset="UTF-8">
-        <title>Serwis biblioteczny</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="description" content="Serwis biblioteczny - projekt zaliczeniowy z przedmiotu Projektowanie serwisów internetowych."/>
-        <meta name="keywords" content="Biblioteka, Książki, Serwis biblioteczny"/>
-        <meta name="author" content="Tymoteusz Staszkiewicz, Krystian Borowski"/>
-        <link th:href="@{/css/styles.css}" rel="stylesheet">
-        <script type="text/javascript" th:src="@{/js/script.js}"></script>
-    </head>
+            <title>Serwis biblioteczny</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta
+                name="description"
+                content="Serwis biblioteczny - projekt zaliczeniowy z przedmiotu Projektowanie serwisów internetowych."/>
+            <meta name="keywords" content="Biblioteka, Książki, Serwis biblioteczny"/>
+            <meta name="author" content="Tymoteusz Staszkiewicz, Krystian Borowski"/>
+            <link th:href="@{/css/styles.css}" rel="stylesheet">
+            <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    
+        </head>
 <body>
     <nav th:fragment="navi">
         <div class="logo">
-            <a th:href="@{|${@environment.getProperty('app.url')}|}">
+            <a th:href="@{/}">
                 <img th:src="@{/img/book_icon.png}" alt="Logo">
             </a>
         </div>
         <div class="left-nav">
-            <div  class="dropdown">
+            <div class="dropdown">
                 <button class="dropbtn">Książki<br />
                     <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
                 </button>
@@ -28,7 +31,7 @@
                 </div>
             </div>
     
-            <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''worker'')')}" class="dropdown">
+            <div class="dropdown">
                 <button class="dropbtn">Autorzy<br />
                     <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
                 </button>
@@ -38,7 +41,7 @@
                 </div>
             </div>
     
-            <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''worker'')')}" class="dropdown">
+            <div class="dropdown">
                 <button class="dropbtn">Wydawnictwa<br />
                     <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
                 </button>
@@ -48,7 +51,7 @@
                 </div>
             </div>
     
-            <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''employee'')')}" class="dropdown">
+            <div class="dropdown">
                 <button class="dropbtn">Administrator<br />
                     <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
                 </button>
