@@ -18,7 +18,9 @@ public class Publisher {
     @Column(name = "publisher_id")
     private Long publisherId;
 
+    // TODO unique
     private String name;
+    
     private String description;
 
     // Getters and setters
