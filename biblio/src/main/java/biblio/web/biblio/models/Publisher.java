@@ -19,6 +19,7 @@ public class Publisher {
     private Long publisherId;
 
     // TODO unique
+    @Column(name = "name", unique = true)
     private String name;
     
     private String description;

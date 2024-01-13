@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div th:each="book : ${books}" class="book">
+            <div class="book__isbn">
+                <p th:text="'ISBN: ' + ${book.isbn}"></p>
+            </div>
+            <!-- Authors -->
+            <!-- for each author in set book.authors-->
+            <div class="book__authors">
+                <p>"Autorzy: "</p>
+                <div th:each="author : ${book.authors}">
+                    <p th:text="${author.name}"></p>
+                </div>
+            </div>
+            <div class="book__pages">
+                <p th:text="'Liczba stron: ' + ${book.pages}"></p>
+            </div>
+            <div class="book__publisher">
+                <p th:text="'Wydawca: ' + ${book.publisher.name}"></p>
+            </div>
+            <div class="book__description">
+                <p th:text="${book.description}"></p>
+            </div>
+            <div class="book__published_date">
+                <p th:text="'Data publikacji: ' + ${book.publishedDate}"></p>
+            </div>
+
+
+            <div class="book__actions">
+                <a th:href="@{/books/show/{id}(id=${book.titleId})}">Pokaż</a>
+                <a th:href="@{/books/edit/{id}(id=${book.titleId})}">Edytuj</a>
+                <form th:action="@{/books/delete/{id}(id=${book.titleId})}" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Usuń</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

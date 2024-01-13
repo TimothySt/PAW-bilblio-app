@@ -1,0 +1,47 @@
+<nav th:fragment="navi">
+    <div class="logo">
+        <a th:href="@{|${@environment.getProperty('app.url')}|}">
+            <img th:src="@{/img/book_icon.png}" alt="Logo">
+        </a>
+    </div>
+    <div class="left-nav">
+        <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''worker'')')}" class="dropdown">
+            <button class="dropbtn">Książki<br />
+                <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/books/list}">Lista książek</a>
+                <a th:href="@{/books/create}">Dodaj książkę</a>
+            </div>
+        </div>
+
+        <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''worker'')')}" class="dropdown">
+            <button class="dropbtn">Autorzy<br />
+                <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/authors/list}">Lista autorów</a>
+                <a th:href="@{/authors/create}">Dodaj autora</a>
+            </div>
+        </div>
+
+        <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''worker'')')}" class="dropdown">
+            <button class="dropbtn">Wydawnictwa<br />
+                <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
+            </button>
+            <div class="dropdown-content">
+                <a th:href="@{/publishers/list}">Lista wydawnictw</a>
+                <a th:href="@{/publishers/create}">Dodaj wydawnictwo</a>
+            </div>
+        </div>
+
+        <div th:if="${#authorization.expression('hasRole(''admin'') or hasRole(''employee'')')}" class="dropdown">
+            <button class="dropbtn">Administrator<br />
+                <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
+            </button>
+            <div class="dropdown-content">
+                <!-- Content here -->
+            </div>
+        </div>
+    </div>
+</nav>

@@ -33,6 +33,7 @@ public class Book {
     private Long titleId;
 
     // TODO unique
+    @Column(name = "isbn", unique = true)
     private String isbn;
     
     private String title;

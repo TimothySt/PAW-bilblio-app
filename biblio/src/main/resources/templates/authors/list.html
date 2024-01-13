@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div th:each="author : ${authors}" class="author">
+            <div class="author__name">
+                <h3 th:text="${author.name}"></h3>
+            </div>
+            <div class="author__description">
+                <p th:text="${author.description}"></p>
+            </div>
+            <div class="author__actions">
+                <a th:href="@{/authors/show/{id}(id=${author.authorId})}">Pokaż</a>
+                <a th:href="@{/authors/edit/{id}(id=${author.authorId})}">Edytuj</a>
+                <form th:action="@{/authors/delete/{id}(id=${author.authorId})}" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Usuń</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

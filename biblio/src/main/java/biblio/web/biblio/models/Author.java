@@ -21,6 +21,7 @@ public class Author {
     private Long authorId;
 
     // TODO unique
+    @Column(name = "name", unique = true)
     private String name;
     
     private String description;

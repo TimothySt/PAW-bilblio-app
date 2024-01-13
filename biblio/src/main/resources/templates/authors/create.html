@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main id="content">
+        <h2>Dodaj autora</h2>
+        <form th:action="@{/authors/store}" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <p>
+                <label for="name">Imię i nazwisko autora</label>
+                <input type="text" name="name" id="name" th:value="${author?.name}" required>
+            </p>
+            <p>
+                <label for="description">Opis autora</label>
+                <textarea name="description" id="description" th:text="${author?.description}"></textarea>
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary mb-2">Dodaj autora</button>
+            </p>
+        </form>
+
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

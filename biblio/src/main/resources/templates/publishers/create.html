@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/navi :: navi"></nav>
+    <main id="content">
+        <h2>Dodaj wydawnictwo</h2>
+        <form th:action="@{/publishers/store}" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <p>
+                <label for="name">Nazwa wydawnictwa</label>
+                <input type="text" name="name" id="name" th:value="${publisher?.name}" required>
+            </p>
+            <p>
+                <label for="description">Opis</label>
+                <textarea name="description" id="description" rows="3" th:text="${publisher?.description}"></textarea>
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary mb-2">Dodaj wydawnictwo</button>
+            </p>
+        </form>
+
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

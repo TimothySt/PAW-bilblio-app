@@ -58,8 +58,25 @@ public class DataLoader implements CommandLineRunner {
         // BookService bookService = new BookService(bookRepository, publisherRepository, authorRepository);
 
         BookService bookService = new BookService(bookRepository, publisherRepository, authorRepository);
-        bookService.addBook("ISBN-123", "Title 1", "Description 1", 20220101, 200, "Language 1", "Publisher 1", set1);
-        
+        try
+        {
+            bookService.addBook("ISBN-123", "Title 1", "Description 1", 20220101, 200, "Language 1", "Publisher 1", set1);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        //  jeszcze 3 inne książki
+        try
+        {
+            bookService.addBook("ISBN-456", "Title 2", "Description 2", 20220102, 250, "Language 2", "Publisher 2", set2);
+            bookService.addBook("ISBN-789", "Title 3", "Description 3", 20220103, 300, "Language 3", "Publisher 3", set1);
+            bookService.addBook("ISBN-012", "Title 4", "Description 4", 20220104, 350, "Language 4", "Publisher 4", set2);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
 }
