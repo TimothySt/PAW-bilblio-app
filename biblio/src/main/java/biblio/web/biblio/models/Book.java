@@ -32,7 +32,9 @@ public class Book {
     @Column(name = "title_id")
     private Long titleId;
 
+    // TODO unique
     private String isbn;
+    
     private String title;
     private String description;
     private int publishedDate;
