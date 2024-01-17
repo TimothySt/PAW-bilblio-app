@@ -1,7 +1,15 @@
 package biblio.web.biblio.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +24,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "Members")
-public class Member {
+public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,19 +60,80 @@ public class Member {
     public Member() {
     }
 
-    public Member(Long memberId, Role role, String firstName, String lastName, String email, String tel, String address, String password, Date emailVerifiedAt, String rememberToken) {
+    public Member(String firstName, String lastName, String email, String tel, String address, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        setTel(tel);
+        this.address = address;
+        this.password = password;
+    }
+
+    public Member(Long memberId, Role role, String firstName, String lastName, String email, String tel, String address,
+            String password, Date emailVerifiedAt, String rememberToken) {
         this.memberId = memberId;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.tel = tel;
+        // this.tel = tel;
+        setTel(tel);
         this.address = address;
         this.password = password;
         this.emailVerifiedAt = emailVerifiedAt;
         this.rememberToken = rememberToken;
     }
 
+    // USER SERVICE?
+    // TODO :
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // if (role != null) {
+        // String roleName = role.getName(); // Sprawdź, czy rola nie jest null przed
+        // dostępem do jej nazwy
+        // authorities.add(new SimpleGrantedAuthority("ROLE_" + roleName));
+        // }
+        if (role != null && role.getName() != null) {
+            String roleName = role.getName();
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + roleName));
+        }
+
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // Możesz dostosować implementację
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Możesz dostosować implementację
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Możesz dostosować implementację
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Możesz dostosować implementację
+    }
+
+    // GETERY SETERY
     public Long getMemberId() {
         return this.memberId;
     }
@@ -110,7 +179,13 @@ public class Member {
     }
 
     public void setTel(String tel) {
-        this.tel = tel;
+        // this.tel = tel;
+        if (isValidPhoneNumber(tel)) {
+            this.tel = tel;
+        } else {
+            // Obsługa błędu, np. rzucenie wyjątku, ustawienie wartości domyślnej itp.
+            throw new IllegalArgumentException("Invalid phone number format");
+        }
     }
 
     public String getAddress() {
@@ -121,9 +196,9 @@ public class Member {
         this.address = address;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
+    // public String getPassword() {
+    // return this.password;
+    // }
 
     public void setPassword(String password) {
         this.password = password;
@@ -203,28 +278,40 @@ public class Member {
             return false;
         }
         Member member = (Member) o;
-        return Objects.equals(memberId, member.memberId) && Objects.equals(role, member.role) && Objects.equals(firstName, member.firstName) && Objects.equals(lastName, member.lastName) && Objects.equals(email, member.email) && Objects.equals(tel, member.tel) && Objects.equals(address, member.address) && Objects.equals(password, member.password) && Objects.equals(emailVerifiedAt, member.emailVerifiedAt) && Objects.equals(rememberToken, member.rememberToken);
+        return Objects.equals(memberId, member.memberId) && Objects.equals(role, member.role)
+                && Objects.equals(firstName, member.firstName) && Objects.equals(lastName, member.lastName)
+                && Objects.equals(email, member.email) && Objects.equals(tel, member.tel)
+                && Objects.equals(address, member.address) && Objects.equals(password, member.password)
+                && Objects.equals(emailVerifiedAt, member.emailVerifiedAt)
+                && Objects.equals(rememberToken, member.rememberToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, role, firstName, lastName, email, tel, address, password, emailVerifiedAt, rememberToken);
+        return Objects.hash(memberId, role, firstName, lastName, email, tel, address, password, emailVerifiedAt,
+                rememberToken);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " memberId='" + getMemberId() + "'" +
-            ", role='" + getRole() + "'" +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", tel='" + getTel() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", password='" + getPassword() + "'" +
-            ", emailVerifiedAt='" + getEmailVerifiedAt() + "'" +
-            ", rememberToken='" + getRememberToken() + "'" +
-            "}";
+                " memberId='" + getMemberId() + "'" +
+                ", role='" + getRole() + "'" +
+                ", firstName='" + getFirstName() + "'" +
+                ", lastName='" + getLastName() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", tel='" + getTel() + "'" +
+                ", address='" + getAddress() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", emailVerifiedAt='" + getEmailVerifiedAt() + "'" +
+                ", rememberToken='" + getRememberToken() + "'" +
+                "}";
     }
-    
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Wzorzec dla numeru telefonu: +481921322 lub 13456798
+        String phonePattern = "^\\+\\d{1,}$|^\\d{1,}$";
+        return Pattern.matches(phonePattern, phoneNumber);
+    }
+
 }

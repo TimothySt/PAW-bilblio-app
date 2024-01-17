@@ -5,6 +5,10 @@
     <nav th:replace="fragments/frag.html :: navi"></nav>
     <main>
         <div th:each="book : ${books}" class="book">
+            
+            <div class="book__title">
+                <a th:href="@{/books/show/{id}(id=${book.isbn})}" th:text="${book.title}"></a>
+            </div>
             <div class="book__isbn">
                 <p th:text="'ISBN: ' + ${book.isbn}"></p>
             </div>
@@ -31,13 +35,14 @@
 
 
             <div class="book__actions">
-                <a th:href="@{/books/show/{id}(id=${book.titleId})}">Pokaż</a>
-                <a th:href="@{/books/edit/{id}(id=${book.titleId})}">Edytuj</a>
-                <form th:action="@{/books/delete/{id}(id=${book.titleId})}" method="POST">
+                <a th:href="@{/books/show/{id}(id=${book.isbn})}">Pokaż</a>
+                <a th:href="@{/books/edit/{id}(id=${book.isbn})}">Edytuj</a>
+                <form th:action="@{/books/delete/{id}(id=${book.isbn})}" method="POST">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit">Usuń</button>
                 </form>
             </div>
+            
         </div>
     </main>
     <footer th:replace="fragments/frag.html :: footer"></footer>

@@ -20,6 +20,18 @@
                 <img th:src="@{/img/book_icon.png}" alt="Logo">
             </a>
         </div>
+        <!-- search bar -->
+        <form th:action="@{/books/search}" method="get">
+            <p>
+                <label for="query">Wyszukaj</label>
+                <!-- <input type="text" name="query" id="query" required th:value="${query}" /> -->
+                <input type="text" name="query" id="query" />
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+            </p>
+        </form>
+
         <div class="left-nav">
             <div class="dropdown">
                 <button class="dropbtn">Książki<br />
@@ -58,6 +70,20 @@
                 <div class="dropdown-content">
                     <!-- Content here -->
                 </div>
+            </div>
+            
+            
+        </div>
+
+        <div class="right-nav">
+            <!-- Dodano warunek sprawdzający, czy użytkownik jest zalogowany -->
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <a th:href="@{/logout}">Wyloguj</a>
+            </div>
+            <!-- Dodano warunek sprawdzający, czy użytkownik nie jest zalogowany -->
+            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a th:href="@{/login}">Zaloguj</a>
+                <a th:href="@{/register}">Zarejestruj</a>
             </div>
         </div>
     </nav>

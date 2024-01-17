@@ -1,12 +1,13 @@
 package biblio.web.biblio.models;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Roles")
@@ -17,12 +18,30 @@ public class Role {
     @Column(name = "role_id")
     private Long roleId;
 
+    public enum UserRole {
+        USER("USER"), EMPLOYEE("EMPLOYEE"), ADMIN("ADMIN");
+
+        private final String role;
+
+        UserRole(String role) {
+            this.role = role;
+        }
+
+        public String getRole() {
+            return role;
+        }
+    }
+
     @Column(unique = true)
     private String name;
 
     // Getters and setters
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Role(Long roleId, String name) {
@@ -75,9 +94,9 @@ public class Role {
     @Override
     public String toString() {
         return "{" +
-            " roleId='" + getRoleId() + "'" +
-            ", name='" + getName() + "'" +
-            "}";
+                " roleId='" + getRoleId() + "'" +
+                ", name='" + getName() + "'" +
+                "}";
     }
-    
+
 }

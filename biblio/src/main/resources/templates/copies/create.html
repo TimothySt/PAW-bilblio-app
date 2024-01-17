@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <h2>Dodaj kopię</h2>
+        <form th:action="@{/books/copies/{isbn}/create(isbn=${isbn})}" method="post" th:object="${copyForm}">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <p>
+                <label for="copyId">ID kopii</label>
+                <input type="text" name="copyId" id="copyId" required th:field="*{copyId}" />
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary mb-2">Dodaj kopię</button>
+            </p>
+        </form>
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

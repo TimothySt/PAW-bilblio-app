@@ -1,5 +1,6 @@
 package biblio.web.biblio.models;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +39,7 @@ public class Book {
     
     private String title;
     private String description;
-    private int publishedDate;
+    private LocalDate publishedDate;
     private int pages;
     private String language;
 
@@ -63,7 +64,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String isbn, String title, String description, int publishedDate, int pages, String language,
+    public Book(String isbn, String title, String description, LocalDate publishedDate, int pages, String language,
             Publisher publisher, List<Copy> copies, Set<Author> authors) {
         // this.titleId = titleId;
         this.isbn = isbn;
@@ -76,7 +77,7 @@ public class Book {
         this.copies = copies;
         this.authors = authors;
     }
-    public Book(String isbn, String title, String description, int publishedDate, int pages, String language, Publisher publisher) {
+    public Book(String isbn, String title, String description, LocalDate publishedDate, int pages, String language, Publisher publisher) {
         this.isbn = isbn;
         this.title = title;
         this.description = description;
@@ -86,7 +87,7 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Book(Long titleId, String isbn, String title, String description, int publishedDate, int pages, String language, Publisher publisher, List<Copy> copies, Set<Author> authors) {
+    public Book(Long titleId, String isbn, String title, String description, LocalDate publishedDate, int pages, String language, Publisher publisher, List<Copy> copies, Set<Author> authors) {
         this.titleId = titleId;
         this.isbn = isbn;
         this.title = title;
@@ -134,11 +135,11 @@ public class Book {
         this.description = description;
     }
 
-    public int getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return this.publishedDate;
     }
 
-    public void setPublishedDate(int publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 

@@ -6,6 +6,16 @@
 
 
     <h1>Bilbio App Test</h1>
+    
+    <!-- Wyświetlenie informacji o zalogowanym użytkowniku -->
+    <!-- <div th:if="${#authentication.principal != null}">
+        <p>Zalogowany użytkownik: <span th:text="${#authentication.principal.username}"></span></p>
+    </div> -->
+    
+    <!-- Sprawdź, czy użytkownik jest zalogowany przed uzyskaniem dostępu do username -->
+    <!-- <div th:if="${#authentication != null}">
+        <p th:text="'Hello, ' + #authentication.principal.username">Hello, User</p>
+    </div> -->
 
     <footer th:replace="fragments/frag.html :: footer"></footer>
 </body>

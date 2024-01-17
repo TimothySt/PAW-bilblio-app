@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div class="book-details">
+            <h2 th:text="${book.title}"></h2>
+            <p th:text="'ISBN: ' + ${book.isbn}"></p>
+            <p>Autorzy: </p>
+            <p th:each="author : ${book.authors}" th:text="${author.name}"></p>
+            <p th:text="'Liczba stron: ' + ${book.pages}"></p>
+            <p th:text="'Wydawca: ' + ${book.publisher.name}"></p>
+            <p th:text="${book.description}"></p>
+            <p th:text="'Data publikacji: ' + ${book.publishedDate}"></p>
+        </div>
+
+        <div class="book__details">
+            <!-- ... (inne informacje o książce) ... -->
+        
+            <!-- Sekcja dodawania kopii -->
+            <div class="book__add-copy">
+                <h3>Dodaj egzemplarz</h3>
+                <form th:action="@{/books/addCopy/{isbn}(isbn=${book.isbn})}" method="post">
+                    <input type="text" name="copyId" placeholder="Numer egzemplarza" required />
+                    <button type="submit">Dodaj</button>
+                </form>
+            </div>
+        
+            <!-- Lista kopii -->
+            <div class="book__copies">
+                <h3>Lista egzemplarzy</h3>
+                <ul>
+                    <li th:each="copy : ${copies}">
+                        <span th:text="${copy.copyId}"></span>
+                        <span th:if="${copy.available}">Dostępny</span>
+                        <span th:unless="${copy.available}">Niedostępny</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package biblio.web.biblio.services;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,13 +29,15 @@ public class BookService {
     private final AuthorRepository authorRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository, PublisherRepository publisherRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, PublisherRepository publisherRepository,
+            AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
         this.authorRepository = authorRepository;
     }
 
-    public void addBook(String isbn, String title, String description, int publishedDate, int pages, String language, String publisherName, Set<String> authorNames) {
+    public void addBook(String isbn, String title, String description, LocalDate publishedDate, int pages,
+            String language, String publisherName, Set<String> authorNames) {
         // Sprawdź, czy wydawca istnieje
         Publisher publisher = publisherRepository.findByName(publisherName);
         if (publisher == null) {
@@ -70,7 +73,9 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    
+    public List<Book> searchBooks(String query) {
+        return bookRepository.searchBooks(query);
+    }
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
@@ -116,5 +121,5 @@ public class BookService {
     }
 
     // Inne metody serwisu związane z operacjami na książkach
-    
+
 }

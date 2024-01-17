@@ -1,11 +1,13 @@
 package biblio.web.biblio.models;
+
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Copies")
@@ -24,6 +26,12 @@ public class Copy {
     // Getters and setters
 
     public Copy() {
+    }
+
+    public Copy(String copyId, Book book) {
+        this.copyId = copyId;
+        this.book = book;
+        this.available = true;
     }
 
     public Copy(String copyId, Book book, boolean available) {
@@ -94,10 +102,10 @@ public class Copy {
     @Override
     public String toString() {
         return "{" +
-            " copyId='" + getCopyId() + "'" +
-            ", book='" + getBook() + "'" +
-            ", available='" + isAvailable() + "'" +
-            "}";
+                " copyId='" + getCopyId() + "'" +
+                ", book='" + getBook() + "'" +
+                ", available='" + isAvailable() + "'" +
+                "}";
     }
-    
+
 }

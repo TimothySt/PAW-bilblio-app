@@ -5,31 +5,44 @@
     <nav th:replace="fragments/frag.html :: navi"></nav>
     <div id="content">
         <h2>Dodaj książkę</h2>
+        <!-- Wyświetlenie błędów walidacji -->
+        <!-- Dodaj poniższy fragment w odpowiednim miejscu na stronie Thymeleaf -->
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+
         <form th:action="@{/books/store}" method="post">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> -->
             <p>
                 <label for="isbn">ISBN</label>
-                <input type="text" name="isbn" id="isbn" required th:value="${book?.isbn}" />
+                <input type="text" name="isbn" id="isbn" required />
             </p>
             <p>
                 <label for="title">Tytuł</label>
-                <input type="text" name="title" id="title" required th:value="${book?.title}" />
+                <input type="text" name="title" id="title" required />
             </p>
             <p>
                 <label for="description">Opis</label>
-                <textarea name="description" id="description" rows="3" required th:text="${book?.description}"></textarea>
+                <textarea name="description" id="description" rows="3" required></textarea>
             </p>
             <p>
                 <label for="published_date">Data publikacji</label>
-                <input type="date" name="published_date" id="published_date" required th:value="${book?.publishedDate}" />
+                <input type="date" name="published_date" id="published_date" required />
             </p>
             <p>
                 <label for="pages">Liczba stron</label>
-                <input type="number" name="pages" id="pages" th:value="${book?.pages}" min="1" />
+                <input type="number" name="pages" id="pages" min="1" />
             </p>
             <p>
                 <label for="language">Język</label>
-                <input type="text" name="language" id="language" required th:value="${book?.language}" />
+                <input type="text" name="language" id="language" required />
+            </p>
+            <p>
+                <label for="publisherName">Wydawca</label>
+                <input type="text" name="publisherName" id="publisherName" required />
+            </p>
+            <p>
+                <label for="authorNames">Autorzy (oddzielone przecinkami)</label>
+                <input type="text" name="authorNames" id="authorNames" required />
             </p>
             <p>
                 <button type="submit" class="btn btn-primary mb-2">Dodaj książkę</button>

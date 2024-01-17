@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form th:action="@{/register}" th:object="${member}" method="post">
+    <!-- Dodaj poniższy kod w odpowiednim miejscu formularza -->
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
+    
+    <label for="firstName">Imię:</label>
+    <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
+
+    <label for="lastName">Nazwisko:</label>
+    <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:field="*{email}" required>
+
+    <!-- <label for="tel">Phone:</label>
+    <input type="tel" id="tel" name="tel" th:field="*{tel}"> -->
+
+    <label for="tel">Numer telefonu:</label>
+    <input type="text" id="tel" name="tel" pattern="(\+\d{1,3})?\d{8,15}" th:field="*{tel}"
+            title="Wprowadź poprawny numer telefonu (np. +481921322 lub 13456798)" required>
+
+    <label for="address">Adres:</label>
+    <input type="text" id="address" name="address" th:field="*{address}">
+
+    <label for="password">Hasło:</label>
+    <input type="password" id="password" name="password" th:field="*{password}" required>
+
+    <button type="submit">Zarejestruj</button>
+</form>
+
+</body>
+</html>
