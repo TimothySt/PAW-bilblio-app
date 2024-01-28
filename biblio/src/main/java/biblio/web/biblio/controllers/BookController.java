@@ -86,8 +86,21 @@ public class BookController {
     }
 
     @PostMapping("/addCopy/{isbn}")
-    public String addCopyToBook(@PathVariable("isbn") String isbn, @RequestParam("copyId") String copyId) {
-        copyService.addCopyToBook(isbn, copyId);
+    public String addCopyToBook(@PathVariable("isbn") String isbn, @RequestParam("copyId") String copyId, Model model) {
+        // sprawdzenie czy kopia istnieje
+        Copy copy = copyService.getCopyById(copyId);
+        // jueśli kopia już istnieje zwróć błąd
+        if (copy != null)
+        {
+            // zróć błąd
+            model.addAttribute("error", "Kopia o podanym id już istnieje");
+            // return "redirect:/books/show/{isbn}";
+        } else
+        {
+            copyService.addCopyToBook(isbn, copyId);
+        }
+
+        // return "books/show/{isbn}";
         return "redirect:/books/show/{isbn}";
     }
 

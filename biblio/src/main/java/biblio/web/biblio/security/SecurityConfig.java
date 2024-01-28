@@ -82,6 +82,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return username -> memberService.loadUserByUsername(username);
     }
+
     // @Bean
     // UserDetailsService userDetailsService() {
     // return new UserDetailsService() {
@@ -92,6 +93,7 @@ public class SecurityConfig {
     // };
     // }
 
+    // NIEUZYWAĆ - do budowania konta bez zainicjowanych kont
     // @Bean
     // UserDetailsService userDetailsService() {
     // UserDetails user = User.builder()

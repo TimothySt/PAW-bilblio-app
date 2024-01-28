@@ -1,12 +1,13 @@
 package biblio.web.biblio.models;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "LoansStatus")
@@ -17,11 +18,16 @@ public class LoanStatus {
     @Column(name = "loan_status_id")
     private Long loanStatusId;
 
+    @Column(unique = true)
     private String status;
 
     // Getters and setters
 
     public LoanStatus() {
+    }
+
+    public LoanStatus(String status) {
+        this.status = status;
     }
 
     public LoanStatus(Long loanStatusId, String status) {

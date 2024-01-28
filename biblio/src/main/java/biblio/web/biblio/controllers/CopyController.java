@@ -15,7 +15,7 @@ import biblio.web.biblio.services.CopyService;
 
 // @RestController
 @Controller
-@RequestMapping("/api/copies")
+@RequestMapping("/copies")
 public class CopyController {
 
     @Autowired

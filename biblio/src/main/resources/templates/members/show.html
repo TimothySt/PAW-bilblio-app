@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div class="member">
+            <div class="member__firstName">
+                <p th:text="'Imię: ' + ${member.firstName}"></p>
+            </div>
+            <div class="member__lastName">
+                <p th:text="'Nazwisko: ' + ${member.lastName}"></p>
+            </div>
+            <div class="member__email">
+                <p th:text="'Email: ' + ${member.email}"></p>
+            </div>
+            <div class="member__tel">
+                <p th:text="'Telefon: ' + ${member.tel}"></p>
+            </div>
+
+        </div>
+
+            <form th:action="@{/loans/add/{memberId}(memberId=${member.memberId})}" method="post">
+                <label for="copyId">Copy ID:</label>
+                <input type="text" id="copyId" name="copyId" required/>
+                <button type="submit">Wypożycz</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data wypożyczenia</th>
+                        <th>Data zwrotu</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="loan : ${loans}">
+                        <td th:text="${loan.loanId}"></td>
+                        <td th:text="${#dates.format(loan.loanDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#dates.format(loan.dueDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${loan.loanStatus.name}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

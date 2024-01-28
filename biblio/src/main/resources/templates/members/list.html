@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div class="query">
+            <form th:action="@{/members/search}" method="get">
+                <h2>Wyszukaj użytkownika</h2>
+                <p>
+
+                    <label for="query">Wyszukaj</label>
+                    <input type="text" name="query" id="query" placeholder="Szukaj...">
+                    <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+
+                </p>
+            </form>
+        </div>
+        <div th:each="member : ${members}" class="member">
+            <div class="member__firstName">
+                <p th:text="'Imię: ' + ${member.firstName}"></p>
+            </div>
+            <div class="member__lastName">
+                <p th:text="'Nazwisko: ' + ${member.lastName}"></p>
+            </div>
+            <div class="member__email">
+                <p th:text="'Email: ' + ${member.email}"></p>
+            </div>
+            <div class="member__tel">
+                <p th:text="'Telefon: ' + ${member.tel}"></p>
+            </div>
+            <div class="member__actions">
+                <a th:href="@{/members/show/{memberId}(memberId=${member.memberId})}">Pokaż</a>
+                <!-- <a th:href="@{/loans/add/{memberId}(memberId=${member.memberId})}">Wypożycz książkę</a> -->
+                <a th:href="@{/members/edit/{memberId}(memberId=${member.memberId})}">Edytuj</a>
+                <form th:action="@{/members/delete/{memberId}(memberId=${member.memberId})}" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Usuń</button>
+                </form>
+            </div>
+            
+        </div>
+        
+
+        
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

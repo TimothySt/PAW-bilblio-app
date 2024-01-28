@@ -16,7 +16,7 @@ import biblio.web.biblio.services.AuthorService;
 
 // @RestController
 @Controller
-@RequestMapping("/api/authors")
+@RequestMapping("/authors")
 public class AuthorController {
 
     @Autowired

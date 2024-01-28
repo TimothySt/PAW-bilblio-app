@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--  -->
     <meta charset="UTF-8">
     <title>Registration</title>
 </head>
@@ -9,7 +10,6 @@
 <h2>Registration Form</h2>
 
 <form th:action="@{/register}" th:object="${member}" method="post">
-    <!-- Dodaj poniższy kod w odpowiednim miejscu formularza -->
     <div th:if="${error}" class="alert alert-danger" role="alert">
         <p th:text="${error}"></p>
     </div>

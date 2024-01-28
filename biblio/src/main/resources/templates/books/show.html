@@ -21,6 +21,11 @@
             <!-- Sekcja dodawania kopii -->
             <div class="book__add-copy">
                 <h3>Dodaj egzemplarz</h3>
+                <!-- wyświetl error -->
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                    <p th:text="${error}"></p>
+                </div>
+
                 <form th:action="@{/books/addCopy/{isbn}(isbn=${book.isbn})}" method="post">
                     <input type="text" name="copyId" placeholder="Numer egzemplarza" required />
                     <button type="submit">Dodaj</button>

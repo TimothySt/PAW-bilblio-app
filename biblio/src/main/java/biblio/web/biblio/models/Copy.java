@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 public class Copy {
 
     @Id
-    @Column(name = "copy_id")
+    @Column(name = "copy_id", unique = true)
     private String copyId;
 
     @ManyToOne

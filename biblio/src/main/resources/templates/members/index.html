@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/frag.html :: headerfiles"></head>
+<body>
+    <nav th:replace="fragments/frag.html :: navi"></nav>
+    <main>
+        <div class="query">
+            <form th:action="@{/members/search}" method="GET">
+                <h2>Wyszukaj użytkownika</h2>
+                <p>
+                    <label for="query">Wyszukaj</label>
+                    <input type="text" name="query" id="query" placeholder="Szukaj...">
+                    <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+                </p>
+            </form>
+        </div>
+        
+    </main>
+    <footer th:replace="fragments/frag.html :: footer"></footer>
+</body>
+</html>

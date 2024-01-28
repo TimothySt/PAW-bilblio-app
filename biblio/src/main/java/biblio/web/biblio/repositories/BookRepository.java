@@ -11,7 +11,6 @@ import biblio.web.biblio.models.Book;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    // @Query(nativeQuery = true, name = "findBookByIsbn")// TODO naprawić
     Book findBookByIsbn(@Param("isbn") String isbn);
 
     List<Book> findByTitleContainingIgnoreCaseOrAuthorsNameContainingIgnoreCase(String title, String authorName);
@@ -24,4 +23,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "WHERE LOWER(unaccent(b.title)) LIKE LOWER(unaccent('%' || :searchQuery || '%')) " +
             "   OR LOWER(unaccent(a.name)) LIKE LOWER(unaccent('%' || :searchQuery || '%'))")
     List<Book> searchBooks(@Param("searchQuery") String searchQuery);
+    
 }

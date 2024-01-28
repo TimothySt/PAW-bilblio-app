@@ -1,6 +1,6 @@
 package biblio.web.biblio.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -33,11 +33,11 @@ public class Loan {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "loan_date")
-    private Date loanDate;
+    private LocalDate loanDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "due_date")
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "loan_status_id")
@@ -48,7 +48,15 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(Long loanId, Copy copy, Member member, Date loanDate, Date dueDate, LoanStatus loanStatus) {
+    public Loan(Copy copy, Member member, LocalDate loanDate, LocalDate dueDate, LoanStatus loanStatus) {
+        this.copy = copy;
+        this.member = member;
+        this.loanDate = loanDate;
+        this.dueDate = dueDate;
+        this.loanStatus = loanStatus;
+    }
+
+    public Loan(Long loanId, Copy copy, Member member, LocalDate loanDate, LocalDate dueDate, LoanStatus loanStatus) {
         this.loanId = loanId;
         this.copy = copy;
         this.member = member;
@@ -81,19 +89,19 @@ public class Loan {
         this.member = member;
     }
 
-    public Date getLoanDate() {
+    public LocalDate getLoanDate() {
         return this.loanDate;
     }
 
-    public void setLoanDate(Date loanDate) {
+    public void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return this.dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -120,12 +128,12 @@ public class Loan {
         return this;
     }
 
-    public Loan loanDate(Date loanDate) {
+    public Loan loanDate(LocalDate loanDate) {
         setLoanDate(loanDate);
         return this;
     }
 
-    public Loan dueDate(Date dueDate) {
+    public Loan dueDate(LocalDate dueDate) {
         setDueDate(dueDate);
         return this;
     }

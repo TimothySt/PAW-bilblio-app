@@ -26,8 +26,6 @@
                 <label for="query">Wyszukaj</label>
                 <!-- <input type="text" name="query" id="query" required th:value="${query}" /> -->
                 <input type="text" name="query" id="query" />
-            </p>
-            <p>
                 <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
             </p>
         </form>
@@ -64,11 +62,11 @@
             </div>
     
             <div class="dropdown">
-                <button class="dropbtn">Administrator<br />
+                <button class="dropbtn">Pracownicy<br />
                     <img class="arrow" th:src="@{/img/arrow_icon.png}" alt="Logo">
                 </button>
                 <div class="dropdown-content">
-                    <!-- Content here -->
+                    <a th:href="@{/members/}">Konta użytkowników</a>
                 </div>
             </div>
             
